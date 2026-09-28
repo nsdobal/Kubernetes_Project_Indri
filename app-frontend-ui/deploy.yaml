@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: dep-app-frontend-ui
+  namespace: dev-indri
+  labels:
+    project: indri
+    app: app-frontend-ui
+    env: dev
+    owner: nd
+    team: platform
+    costcenter: dev-indri
+    object: deployment
+    tag: dep-app-frontend-ui
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      pod: pod-app-frontend-ui
+  
+  template:
+    metadata:
+      name: pod-app-frontend-ui
+      namespace: dev-indri
+      labels:
+        pod: pod-app-frontend-ui
+
+    spec:
+      containers:
+      - name: pod-app-frontend-ui
+        image: nsdobal/indri-app-frontend-ui
+        imagePullPolicy: Always
+        ports:
+        - name: port-frontend
+          containerPort: 80
+              
+      resources:
+        requests:
+          cpu: 50m
+          memory: 256Mi
+        limits:
+          cpu: 100m
+          memory: 512Mi
+

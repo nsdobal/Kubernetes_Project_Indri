@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: svc-app-frontend-ui
+  namespace: dev-indri
+  labels:
+    project: indri
+    app: app-frontend-ui
+    env: dev
+    owner: nd
+    team: platform
+    costcenter: dev-indri
+    object: service
+    tag: svc-app-frontend-ui
+
+spec:
+  type: ClusterIP
+  selector:
+    pod: pod-app-frontend-ui
+  ports:
+  - name: port-frontend-ui
+    port: 80
+    targetPort: 80
