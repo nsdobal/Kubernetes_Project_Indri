@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: dep-app-backend
+  namespace: dev-indri
+  labels:
+    project: indri
+    app: app-backend
+    env: dev
+    owner: nd
+    team: platform
+    costcenter: dev-indri
+    object: deployment
+    tag: dep-app-backend
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      pod: pod-app-backend
+  
+  template:
+    metadata:
+      name: pod-app-backend
+      namespace: dev-indri
+      labels:
+        pod: pod-app-backend
+
+    spec:
+      containers:
+      - name: pod-app-backend
+        image: nsdobal/indri-app-backend
+        imagePullPolicy: Always
+        ports:
+        - name: port-backend
+          containerPort: 8000
+              
+      resources:
+        requests:
+          cpu: 50m
+          memory: 256Mi
+        limits:
+          cpu: 100m
+          memory: 512Mi
+
