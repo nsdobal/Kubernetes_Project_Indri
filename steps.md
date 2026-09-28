@@ -1,3 +1,6 @@
+Requirement : Min 2Core CPU, 8 GiB Memory
+This deployment follow HPA (horizontal Pod Autoscaler) and request min cpu requirement for each pods. Min 2 CPU core and 8Gib Memory is required.
+
 1. Go to db-postgres folder
    Run 
    kubectl apply -f .
