@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: dep-app-ingest
+  namespace: dev-indri
+  labels:
+    project: indri
+    app: app-ingest
+    env: dev
+    owner: nd
+    team: platform
+    costcenter: dev-indri
+    object: deployment
+    tag: dep-app-ingest
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      pod: pod-app-ingest
+  
+  template:
+    metadata:
+      name: pod-app-ingest
+      namespace: dev-indri
+      labels:
+        pod: pod-app-ingest
+
+    spec:
+      containers:
+      - name: pod-app-ingest
+        image: nsdobal/indri-app-ingest
+        imagePullPolicy: Always
+        ports:
+        - name: port-ingest
+          containerPort: 8000
+              
+      resources:
+        requests:
+          cpu: 100m
+          memory: 256Mi
+        limits:
+          cpu: 200m
+          memory: 512Mi
+
