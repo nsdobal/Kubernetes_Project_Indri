@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: svc-web-pgadmin
+  namespace: dev-indri
+  labels:
+    project: indri
+    app: web-pgadmin
+    env: dev
+    owner: nd
+    team: platform
+    costcenter: dev-indri
+    object: service
+    tag: svc-web-pgadmin
+
+spec:
+  type: ClusterIP
+  selector:
+    pod: pod-web-pgadmin
+  ports:
+  - name: port-pgadmin
+    port: 80
+    targetPort: 80

@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: dep-web-pgadmin
+  namespace: dev-indri
+  labels:
+    project: indri
+    app: web-pgadmin
+    env: dev
+    owner: nd
+    team: platform
+    costcenter: dev-indri
+    object: deployment
+    tag: dep-web-pgadmin
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      pod: pod-web-pgadmin
+  
+  template:
+    metadata:
+      name: pod-web-pgadmin
+      namespace: dev-indri
+      labels:
+        pod: pod-web-pgadmin
+
+    spec:
+      containers:
+      - name: pod-web-pgadmin
+        image: dpage/pgadmin4:9.17.0
+        imagePullPolicy: Always
+        ports:
+        - name: port-pgadmin
+          containerPort: 80
+        env:
+          - name: PGADMIN_DEFAULT_EMAIL
+            value: admin@nsdobal.online
+          - name: PGADMIN_DEFAULT_PASSWORD
+            value: Welcome      
+      resources:
+        requests:
+          cpu: 100m
+          memory: 512Mi
+        limits:
+          cpu: 200m
+          memory: 1024Mi
+
