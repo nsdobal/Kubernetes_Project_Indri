@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: dep-db-postgres
+  namespace: dev-indri
+  labels:
+    project: indri
+    app: db-postgres
+    env: dev
+    owner: nd
+    team: platform
+    costcenter: dev-indri
+    object: deployment
+    tag: dep-db-postgres
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      pod: pod-db-postgres
+  
+  template:
+    metadata:
+      name: pod-db-postgres
+      namespace: dev-indri
+      labels:
+        pod: pod-db-postgres
+
+    spec:
+      containers:
+      - name: pod-db-postgres
+        image: postgres:17.10
+        imagePullPolicy: Always
+        ports:
+        - name: port-db-pgsql
+          containerPort: 5432
+        env:
+          - name: POSTGRES_USER
+            value: admin
+          - name: POSTGRES_PASSWORD
+            value: Welcome
+          - name: POSTGRES_DB
+            value: db-indri          
+      resources:
+        requests:
+          cpu: 500m
+          memory: 1024Mi
+        limits:
+          cpu: 1000m
+          memory: 2048Mi
+
