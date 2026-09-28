@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: dep-app-simulator
+  namespace: dev-indri
+  labels:
+    project: indri
+    app: app-simulator
+    env: dev
+    owner: nd
+    team: platform
+    costcenter: dev-indri
+    object: deployment
+    tag: dep-app-simulator
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      pod: pod-app-simulator
+  
+  template:
+    metadata:
+      name: pod-app-simulator
+      namespace: dev-indri
+      labels:
+        pod: pod-app-simulator
+
+    spec:
+      containers:
+      - name: pod-app-simulator
+        image: nsdobal/indri-app-simulator
+        imagePullPolicy: Always
+        ports:
+        - name: port-simulator
+          containerPort: 8000
+              
+      resources:
+        requests:
+          cpu: 100m
+          memory: 256Mi
+        limits:
+          cpu: 200m
+          memory: 512Mi
+

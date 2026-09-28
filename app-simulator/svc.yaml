@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: svc-app-simulator
+  namespace: dev-indri
+  labels:
+    project: indri
+    app: app-simulator
+    env: dev
+    owner: nd
+    team: platform
+    costcenter: dev-indri
+    object: service
+    tag: svc-app-simulator
+
+spec:
+  type: ClusterIP
+  selector:
+    pod: pod-app-simulator
+  ports:
+  - name: port-simulator
+    port: 8000
+    targetPort: 8000
